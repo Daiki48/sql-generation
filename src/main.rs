@@ -1,4 +1,4 @@
-use clap::{command, Parser};
+use clap::{command, Parser, Subcommand};
 
 use std::path::PathBuf;
 
@@ -6,10 +6,15 @@ mod consts;
 mod cli_init;
 
 #[derive(Parser, Debug)]
-#[command(name = "sql-generation", author, version, about, long_about)]
-struct Cli {
-    #[arg(short, long)]
-    init: bool
+#[command(author, version, about, long_about = None)]
+struct Args {
+    #[command(subcommand)]
+    cmd: Commands
+}
+
+#[derive(Subcommand, Debug, Clone)]
+enum Commands {
+    Init,
 }
 
 fn get_home_dir() -> Result<PathBuf, Box<dyn std::error::Error>> {
@@ -17,11 +22,13 @@ fn get_home_dir() -> Result<PathBuf, Box<dyn std::error::Error>> {
 }
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let cli = Cli::parse();
+    let args= Args::parse();
     let home_dir = get_home_dir()?;
 
-    if cli.init {
-        cli_init::init(home_dir, consts::INIT_CONFIG)?;
+    // println!("args is {:?}", args);
+
+    match args.cmd {
+        Commands::Init => cli_init::init(home_dir, consts::INIT_CONFIG)?,
     }
     Ok(())
 }
