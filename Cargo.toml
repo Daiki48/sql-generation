@@ -1,0 +1,14 @@
+[package]
+name = "sql-generation"
+version = "0.1.0"
+edition = "2021"
+authors = ["Daiki Nakashima <daiki48.engineer@gmail.com>"]
+license = "MIT"
+description = "CLI for SQL generation"
+readme = "README.md"
+repository = "https://github.com/Daiki48/sql-generation"
+keywords = ["cli"]
+
+[dependencies]
+clap = { version = "4.5.20", features = ["derive"] }
+dirs = "5.0.1"
