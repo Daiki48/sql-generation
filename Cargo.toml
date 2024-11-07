@@ -12,3 +12,4 @@ keywords = ["cli"]
 [dependencies]
 clap = { version = "4.5.20", features = ["derive"] }
 dirs = "5.0.1"
+toml = "0.8.19"
